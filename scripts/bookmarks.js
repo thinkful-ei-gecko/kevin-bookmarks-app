@@ -17,7 +17,7 @@ const BOOKMARKS = (function() {
         <div class="bookmark-list-item-expanded-view" ${expanded}>
           <button class="condense-button">^</button>
           <div class="expanded-view-title">${bookmark.title}</div>
-          <div class="expanded-view-url"><a href="${bookmark.url}">Visit Site</a></div>
+          <div class="expanded-view-url"><a href="${bookmark.url}" target="_blank">Visit Site</a></div>
           <div class="expanded-view-rating">${bookmark.rating} Stars</div>
           <div class="expanded-view-desc">${bookmark.desc}</div>
           <div class="expanded-view-controls">
@@ -46,7 +46,7 @@ const BOOKMARKS = (function() {
         <label for="url">URL</label>
         <input type="url" name="url" id="form-url-field" value="https://" required>
         <label for="rating">Rating</label>
-        <input type="number" name="rating" id="form-rating-field" min="1" max="5">
+        <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
         <label for="desc">Description</label>
         <textarea rows="5" cols="50" name="desc" id="form-desc-field"></textarea>
       </fieldset>

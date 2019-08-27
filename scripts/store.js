@@ -36,10 +36,10 @@ const STORE = (function() {
   }
 
   return {
-    bookmarks: [], // all bookmarks in the STORE
-    isAdding: false, // the STORE is in the "Add New Bookmark" state
-    filterBy: -1, // the STORE defaults to the "Show All" state
-    currentExpandedID: null, // the STORE allows only one "Expanded" bookmark at a time (closing the previous expanded bookmark if there is one)
+    bookmarks: [],
+    isAdding: false,
+    filterBy: -1,
+    currentExpandedID: null,
 
     add,
     findById,
