@@ -41,8 +41,8 @@ const API = (function() {
         id: cuid(),
         title: formData.title,
         url: formData.url,
-        desc: formData.desc,
-        rate: formData.rate
+        rating: formData.rating,
+        desc: formData.desc
       })
     });
   };
