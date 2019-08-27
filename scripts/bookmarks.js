@@ -112,8 +112,8 @@ const BOOKMARKS = (function() {
 
   function handleCondenseClicked() {
     $('.content-view').on('click', '.condense-button', event => {
-      const bookmarkID = getIDFromElement(event.currentTarget);
-      STORE.findById(bookmarkID).expanded = false;
+      const clickedID = getIDFromElement(event.currentTarget);
+      STORE.findAndUpdate(clickedID, { expanded: false });
       STORE.setCurrentExpandedID(null);
       render();
     });
@@ -121,12 +121,12 @@ const BOOKMARKS = (function() {
 
   function handleExpandClicked() {
     $('.content-view').on('click', '.expand-button', event => {
-      const bookmarkID = getIDFromElement(event.currentTarget);
+      const clickedID = getIDFromElement(event.currentTarget);
       if (STORE.currentExpandedID !== null) {
-        STORE.findById(STORE.currentExpandedID).expanded = false;
+        STORE.findAndUpdate(STORE.currentExpandedID, { expanded: false });
       }
-      STORE.findById(bookmarkID).expanded = true;
-      STORE.setCurrentExpandedID(bookmarkID);
+      STORE.findAndUpdate(clickedID, { expanded: true });
+      STORE.setCurrentExpandedID(clickedID);
       render();
     });
   }
