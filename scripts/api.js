@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* global STORE */
 const API = (function() {
-  
+
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/kevin-wei/bookmarks';
 
   function fetchSpecial(...args) {
@@ -28,11 +28,11 @@ const API = (function() {
       .catch(error => console.error(`${error.code} ${error.message}`));
   }
 
-  const getAllBookmarks = function() {
+  function getAllBookmarks() {
     return fetchSpecial(`${BASE_URL}`);
-  };
+  }
 
-  const createBookmark = function(formObj) {
+  function createBookmark(formObj) {
     return fetchSpecial(`${BASE_URL}`, {
       method: 'POST',
       headers: {
@@ -45,13 +45,13 @@ const API = (function() {
         desc: formObj.desc
       })
     });
-  };
+  }
 
-  const getBookmark = function(id) {
+  function getBookmark(id) {
     return fetchSpecial(`${BASE_URL}/${id}`);
-  };
+  }
 
-  const updateBookmark = function(id, updateData) {
+  function updateBookmark(id, updateData) {
     return fetchSpecial(`${BASE_URL}/${id}`, {
       method: 'PATCH',
       headers: {
@@ -59,13 +59,13 @@ const API = (function() {
       },
       body: JSON.stringify(updateData)
     });
-  };
+  }
 
-  const deleteBookmark = function(id) {
+  function deleteBookmark(id) {
     return fetchSpecial(`${BASE_URL}/${id}`, {
       method: 'DELETE'
     });
-  };
+  }
 
   return {
     getAllBookmarks,

@@ -1,39 +1,39 @@
 'use strict';
 /* eslint-disable no-unused-vars */
 const STORE = (function() {
-  
-  const add = function(bookmark) {
+
+  function add(bookmark) {
     Object.assign(bookmark, { expanded: false });
     this.bookmarks.unshift(bookmark);
     return bookmark;
-  };
+  }
 
-  const findById = function(id) {
+  function findById(id) {
     return this.bookmarks.find(bookmark => bookmark.id === id);
-  };
+  }
 
-  const findAndDelete = function(id) {
+  function findAndDelete(id) {
     this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== id);
-  };
+  }
 
-  const findAndUpdate = function(id, newData) {
+  function findAndUpdate(id, newData) {
     const bookmark = this.findById(id);
     if (bookmark !== undefined) {
       Object.assign(bookmark, newData);
     }
-  };
+  }
 
-  const toggleIsAdding = function() {
+  function toggleIsAdding() {
     this.isAdding = !this.isAdding;
-  };
+  }
 
-  const setFilterBy = function(rating) {
+  function setFilterBy(rating) {
     this.filterBy = rating;
-  };
+  }
 
-  const setCurrentExpandedID = function(id) {
+  function setCurrentExpandedID(id) {
     this.currentExpandedID = id;
-  };
+  }
 
   return {
     bookmarks: [], // all bookmarks in the STORE
