@@ -43,13 +43,13 @@ const BOOKMARKS = (function() {
         <input type="button" value="Close" class="form-close-button">
         <fieldset>
           <legend>Add Bookmark</legend>
-          <label for="title">Title</label>
+          <label for="form-title-field">Title</label>
           <input type="text" name="title" id="form-title-field" required>
-          <label for="url">URL</label>
+          <label for="form-url-field">URL</label>
           <input type="url" name="url" id="form-url-field" value="https://" required>
-          <label for="rating">Rating</label>
+          <label for="form-rating-field">Rating</label>
           <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
-          <label for="desc">Description</label>
+          <label for="form-desc-field">Description</label>
           <textarea rows="5" cols="50" name="desc" id="form-desc-field"></textarea>
         </fieldset>
         <input type="reset" value="Clear All" class="form-reset-button">
@@ -166,7 +166,7 @@ const BOOKMARKS = (function() {
   }
 
   function handleExpanded_EditClicked() {
-    // TODO
+    // TODO rating and desc only
   }
 
   function bindEventListeners() {
