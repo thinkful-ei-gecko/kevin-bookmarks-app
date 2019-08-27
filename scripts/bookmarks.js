@@ -44,7 +44,7 @@ const BOOKMARKS = (function() {
         <label for="title">Title</label>
         <input type="text" name="title" id="form-title-field" required>
         <label for="url">URL</label>
-        <input type="url" name="url" id="form-url-field" required>
+        <input type="url" name="url" id="form-url-field" value="https://" required>
         <label for="rating">Rating</label>
         <input type="number" name="rating" id="form-rating-field" min="1" max="5">
         <label for="desc">Description</label>
@@ -125,6 +125,14 @@ const BOOKMARKS = (function() {
     });
   }
 
+  function handleURLFieldInput() {
+    $('.content-view').on('keyup', '#form-url-field', () => {
+      if ($('#form-url-field').val().substr(0 , 8) !== 'https://') {
+        $('#form-url-field').val('https://');
+      }
+    });
+  }
+
   function handleCondenseClicked() {
     $('.content-view').on('click', '.condense-button', event => {
       const bookmarkID = getIDFromElement(event.currentTarget);
@@ -164,6 +172,7 @@ const BOOKMARKS = (function() {
     handleAdding_SubmitClicked();
     handleAdding_CloseClicked();
     handleFilterSelected();
+    handleURLFieldInput();
     handleCondenseClicked();
     handleExpandClicked();
     handleExpanded_DeleteClicked();
