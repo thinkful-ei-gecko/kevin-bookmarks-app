@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* global STORE, API */
 const BOOKMARKS = (function() {
-  
+
   function generateHTML_Bookmark(bookmark) {
     const condensed = bookmark.expanded ? 'hidden' : '';
     const expanded = bookmark.expanded ? '' : 'hidden';
@@ -60,6 +60,7 @@ const BOOKMARKS = (function() {
     if (!STORE.isAdding) {
       document.querySelector('.master-controls').removeAttribute('hidden');
       let bookmarksInStore = [ ...STORE.bookmarks ];
+      bookmarksInStore = bookmarksInStore.filter(bookmark => bookmark.rating >= STORE.filterBy);
       const fullBookmarksList = generateHTML_FullBookmarksList(bookmarksInStore);
       $('.content-view').html(fullBookmarksList);
     }
@@ -116,8 +117,12 @@ const BOOKMARKS = (function() {
     });
   }
 
-  function handleFilterByRatingSelected() {
-    // TODO: should first set all expanded to false (handles an edge case)
+  function handleFilterSelected() {
+    $('.master-controls').on('change', '#master-controls-filter-select', () => {
+      const rating = $('#master-controls-filter-select').val();
+      STORE.setFilterBy(rating);
+      render();
+    });
   }
 
   function handleCondenseClicked() {
@@ -158,7 +163,7 @@ const BOOKMARKS = (function() {
     handleAddClicked();
     handleAdding_SubmitClicked();
     handleAdding_CloseClicked();
-    handleFilterByRatingSelected();
+    handleFilterSelected();
     handleCondenseClicked();
     handleExpandClicked();
     handleExpanded_DeleteClicked();
