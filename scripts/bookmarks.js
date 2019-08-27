@@ -121,10 +121,8 @@ const BOOKMARKS = (function() {
 
   function handleExpandClicked() {
     $('.content-view').on('click', '.expand-button', event => {
+      STORE.findAndUpdate(STORE.currentExpandedID, { expanded: false });
       const bookmarkID = getIDFromElement(event.currentTarget);
-      if (STORE.currentExpandedID !== null) {
-        STORE.findAndUpdate(STORE.currentExpandedID, { expanded: false });
-      }
       STORE.findAndUpdate(bookmarkID, { expanded: true });
       STORE.setCurrentExpandedID(bookmarkID);
       render();
