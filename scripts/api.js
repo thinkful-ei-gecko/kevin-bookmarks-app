@@ -1,6 +1,6 @@
 'use strict';
 /* eslint-disable no-unused-vars */
-/* global cuid, STORE */
+/* global STORE */
 const API = (function() {
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/kevin-wei/bookmarks';
 
@@ -38,7 +38,6 @@ const API = (function() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
-        id: cuid(),
         title: formData.title,
         url: formData.url,
         rating: formData.rating,
