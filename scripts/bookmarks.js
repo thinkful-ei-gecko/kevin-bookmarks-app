@@ -2,13 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* global STORE, API */
 const BOOKMARKS = (function() {
-  function serializeJson(form) {
-    const formData = new FormData(form);
-    const o = {};
-    formData.forEach((val, name) => o[name] = val);
-    return JSON.stringify(o);
-  }
-
+  
   function generateHTML_Bookmark(bookmark) {
     const condensed = bookmark.expanded ? 'hidden' : '';
     const expanded = bookmark.expanded ? '' : 'hidden';
@@ -80,6 +74,15 @@ const BOOKMARKS = (function() {
     return $(bookmark).closest('.bookmark-list-item').attr('id');
   }
 
+  function formDataToObject(form) {
+    const formData = new FormData(form);
+    const obj = {};
+    formData.forEach((val, name) => obj[name] = val);
+    return obj;
+  }
+
+  ////////////////////////////// EVENT LISTENERS //////////////////////////////
+
   function handleAddClicked() {
     $('.master-controls').on('click', '.master-controls-add-button', () => {
       STORE.toggleIsAdding();
@@ -91,11 +94,18 @@ const BOOKMARKS = (function() {
     $('.content-view').on('submit', '#new-bookmark-form', event => {
       event.preventDefault();
       const formElement = document.querySelector('#new-bookmark-form');
-      //console.log( serializeJson(formElement) );
-      // TODO: add to server -> then add to store
-
-      STORE.toggleIsAdding();
-      render();
+      const formObj = formDataToObject(formElement);
+      API.createBookmark(formObj)
+        .then(bookmarkOnServer => {
+          return STORE.add(bookmarkOnServer);
+        })
+        .then(bookmarkOnStore => {
+          STORE.findAndUpdate(STORE.currentExpandedID, { expanded: false });
+          STORE.findAndUpdate(bookmarkOnStore.id, { expanded: true });
+          STORE.setCurrentExpandedID(bookmarkOnStore.id);
+          STORE.toggleIsAdding();
+          render();
+        });
     });
   }
 

@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* global STORE */
 const API = (function() {
+  
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/kevin-wei/bookmarks';
 
   function fetchSpecial(...args) {
@@ -31,17 +32,17 @@ const API = (function() {
     return fetchSpecial(`${BASE_URL}`);
   };
 
-  const createBookmark = function(formData) {
+  const createBookmark = function(formObj) {
     return fetchSpecial(`${BASE_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
-        title: formData.title,
-        url: formData.url,
-        rating: formData.rating,
-        desc: formData.desc
+        title: formObj.title,
+        url: formObj.url,
+        rating: formObj.rating,
+        desc: formObj.desc
       })
     });
   };
