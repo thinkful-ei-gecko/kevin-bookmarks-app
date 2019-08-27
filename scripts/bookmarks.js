@@ -7,7 +7,6 @@ const BOOKMARKS = (function() {
     const condensed = bookmark.expanded ? 'hidden' : '';
     const expanded = bookmark.expanded ? '' : 'hidden';
     return `
-    <ul class="bookmark-list">
       <li class="bookmark-list-item" id="${bookmark.id}">
         <div class="bookmark-list-item-condensed-view" ${condensed}>
           <button class="expand-button">V</button>
@@ -26,33 +25,36 @@ const BOOKMARKS = (function() {
           </div>
         </div>
       </li>
-    </ul>
     `;
   }
 
   function generateHTML_FullBookmarksList(bookmarksInStore) {
     const bookmarks = bookmarksInStore.map(bookmark => generateHTML_Bookmark(bookmark));
-    return bookmarks.join('');
+    return `
+      <ul class="bookmark-list">
+        ${bookmarks.join('')}
+      </ul>
+    `;
   }
 
   function generateHTML_NewBookmarkForm() {
     return `
-    <form id="new-bookmark-form">
-      <input type="button" value="Close" class="form-close-button">
-      <fieldset>
-        <legend>Add Bookmark</legend>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="form-title-field" required>
-        <label for="url">URL</label>
-        <input type="url" name="url" id="form-url-field" value="https://" required>
-        <label for="rating">Rating</label>
-        <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
-        <label for="desc">Description</label>
-        <textarea rows="5" cols="50" name="desc" id="form-desc-field"></textarea>
-      </fieldset>
-      <input type="reset" value="Clear All" class="form-reset-button">
-      <input type="submit" value="Add Bookmark" class="form-submit-button">
-    </form>
+      <form id="new-bookmark-form">
+        <input type="button" value="Close" class="form-close-button">
+        <fieldset>
+          <legend>Add Bookmark</legend>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="form-title-field" required>
+          <label for="url">URL</label>
+          <input type="url" name="url" id="form-url-field" value="https://" required>
+          <label for="rating">Rating</label>
+          <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
+          <label for="desc">Description</label>
+          <textarea rows="5" cols="50" name="desc" id="form-desc-field"></textarea>
+        </fieldset>
+        <input type="reset" value="Clear All" class="form-reset-button">
+        <input type="submit" value="Add Bookmark" class="form-submit-button">
+      </form>
     `;
   }
 
