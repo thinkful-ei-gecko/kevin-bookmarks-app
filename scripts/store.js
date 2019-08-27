@@ -2,9 +2,8 @@
 /* eslint-disable no-unused-vars */
 const STORE = (function() {
   const add = function(bookmark) {
-    // needs to add one more property: expanded (boolean)
-    Object.assign(bookmark, { expanded: false});
-    this.bookmarks.push(bookmark);
+    Object.assign(bookmark, { expanded: false });
+    this.bookmarks.unshift(bookmark);
   };
 
   const findById = function(id) {
