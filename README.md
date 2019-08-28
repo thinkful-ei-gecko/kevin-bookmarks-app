@@ -19,4 +19,4 @@ As a user:
 - [x] I receive appropriate feedback when I cannot submit a bookmark
   - Check all validations in the API documentation (e.g. title and url field required)
 - [x] I can select from a dropdown a "minimum rating" to filter the list by all bookmarks rated at or above the chosen selection
-- [] (Extension) I can edit the rating and description of a bookmark in my list
+- [ ] (Extension) I can edit the rating and description of a bookmark in my list
