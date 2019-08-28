@@ -4,28 +4,34 @@
 const BOOKMARKS = (function() {
 
   function generateHTML_Bookmark(bookmark) {
-    const condensed = bookmark.expanded ? 'hidden' : '';
-    const expanded = bookmark.expanded ? '' : 'hidden';
-    return `
-      <li class="bookmark-list-item" id="${bookmark.id}">
-        <div class="bookmark-list-item-condensed-view" ${condensed}>
-          <button class="expand-button">V</button>
-          <span class="condensed-view-title">${bookmark.title}</span>
-          <span class="condensed-view-rating">${bookmark.rating} Stars</span>
-        </div>
-        <div class="bookmark-list-item-expanded-view" ${expanded}>
-          <button class="condense-button">^</button>
-          <div class="expanded-view-title">${bookmark.title}</div>
-          <div class="expanded-view-url"><a href="${bookmark.url}" target="_blank">Visit Site</a></div>
-          <div class="expanded-view-rating">${bookmark.rating} Stars</div>
-          <div class="expanded-view-desc">${bookmark.desc}</div>
+    if (!bookmark.expanded) {
+      return `
+        <li class="bookmark-list-item" id="${bookmark.id}">
+          <div class="bookmark-list-item-condensed-view">
+            <div class="condensed-view-title">${bookmark.title}</div>
+            <div class="condensed-view-rating">${bookmark.rating} Stars</div>
+          </div>
+        </li>
+      `;
+    }
+    else {
+      return `
+        <li class="bookmark-list-item" id="${bookmark.id}">
+          <div class="bookmark-list-item-expanded-view">
+            <div class="expanded-view-title">${bookmark.title}</div>
+            <div class="expanded-view-rating">${bookmark.rating} Stars</div>
+            <break></break>
+            <div class="expanded-view-url"><a href="${bookmark.url}" target="_blank">Visit Site</a></div>
+            <break></break>
+            <div class="expanded-view-desc">${bookmark.desc}</div>
+          </div>
           <div class="expanded-view-controls">
             <button class="expanded-view-controls-edit-button">Edit</button>
             <button class="expanded-view-controls-delete-button">Delete</button>
           </div>
-        </div>
-      </li>
-    `;
+        </li>
+      `;
+    }
   }
 
   function generateHTML_FullBookmarksList(bookmarksInStore) {
@@ -40,7 +46,7 @@ const BOOKMARKS = (function() {
   function generateHTML_NewBookmarkForm() {
     return `
       <form id="new-bookmark-form">
-        <input type="button" value="Close" class="form-close-button">
+        <input type="button" value="X" class="form-close-button">
         <fieldset>
           <legend>Add Bookmark</legend>
           <label for="form-title-field">Title</label>
@@ -50,10 +56,12 @@ const BOOKMARKS = (function() {
           <label for="form-rating-field">Rating</label>
           <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
           <label for="form-desc-field">Description</label>
-          <textarea rows="5" cols="50" name="desc" id="form-desc-field"></textarea>
+          <textarea name="desc" id="form-desc-field"></textarea>
         </fieldset>
-        <input type="reset" value="Clear All" class="form-reset-button">
-        <input type="submit" value="Add Bookmark" class="form-submit-button">
+        <div class="form-controls">
+          <input type="reset" value="Clear All" class="form-reset-button">
+          <input type="submit" value="Add Bookmark" class="form-submit-button">
+        <div class="form-controls">
       </form>
     `;
   }
@@ -136,7 +144,7 @@ const BOOKMARKS = (function() {
   }
 
   function handleCondenseClicked() {
-    $('.content-view').on('click', '.condense-button', event => {
+    $('.content-view').on('click', '.bookmark-list-item-expanded-view', event => {
       const bookmarkID = getIDFromElement(event.currentTarget);
       STORE.findAndUpdate(bookmarkID, { expanded: false });
       STORE.setCurrentExpandedID(null);
@@ -145,7 +153,7 @@ const BOOKMARKS = (function() {
   }
 
   function handleExpandClicked() {
-    $('.content-view').on('click', '.expand-button', event => {
+    $('.content-view').on('click', '.bookmark-list-item-condensed-view', event => {
       STORE.findAndUpdate(STORE.currentExpandedID, { expanded: false });
       const bookmarkID = getIDFromElement(event.currentTarget);
       STORE.findAndUpdate(bookmarkID, { expanded: true });
