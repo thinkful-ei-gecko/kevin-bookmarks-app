@@ -33,17 +33,21 @@ const API = (function() {
   }
 
   function createBookmark(formObj) {
+    const postData = {
+      title: formObj.title,
+      url: formObj.url,
+      desc: formObj.desc,
+      rating: null
+    };
+    if (formObj.rating !== '-1') {
+      Object.assign(postData, {rating: formObj.rating});
+    }
     return fetchSpecial(`${BASE_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
-        title: formObj.title,
-        url: formObj.url,
-        rating: formObj.rating,
-        desc: formObj.desc
-      })
+      body: JSON.stringify(postData)
     });
   }
 
