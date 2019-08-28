@@ -3,13 +3,30 @@
 /* global STORE, API */
 const BOOKMARKS = (function() {
 
+  function starGenerator(rating) {
+    switch(rating) {
+      case 1:
+        return '★☆☆☆☆';
+      case 2:
+        return '★★☆☆☆';
+      case 3:
+        return '★★★☆☆';
+      case 4:
+        return '★★★★☆';
+      case 5:
+        return '★★★★★';
+      default:
+        return 'No Rating';
+    }
+  }
+
   function generateHTML_Bookmark(bookmark) {
     if (!bookmark.expanded) {
       return `
         <li class="bookmark-list-item" id="${bookmark.id}">
           <div class="bookmark-list-item-condensed-view">
             <div class="condensed-view-title">${bookmark.title}</div>
-            <div class="condensed-view-rating">${bookmark.rating} Stars</div>
+            <div class="condensed-view-rating">${starGenerator(bookmark.rating)}</div>
           </div>
         </li>
       `;
@@ -19,7 +36,7 @@ const BOOKMARKS = (function() {
         <li class="bookmark-list-item" id="${bookmark.id}">
           <div class="bookmark-list-item-expanded-view">
             <div class="expanded-view-title">${bookmark.title}</div>
-            <div class="expanded-view-rating">${bookmark.rating} Stars</div>
+            <div class="expanded-view-rating">${starGenerator(bookmark.rating)}</div>
             <break></break>
             <div class="expanded-view-url"><a href="${bookmark.url}" target="_blank">Visit Site</a></div>
             <break></break>
@@ -54,7 +71,14 @@ const BOOKMARKS = (function() {
           <label for="form-url-field">URL</label>
           <input type="url" name="url" id="form-url-field" value="https://" required>
           <label for="form-rating-field">Rating</label>
-          <input type="number" name="rating" id="form-rating-field" value="0" min="1" max="5">
+          <select name="rating" id="form-rating-field">
+            <option value="-1">-- Rate this Bookmark --</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
+          </select>
           <label for="form-desc-field">Description</label>
           <textarea name="desc" id="form-desc-field"></textarea>
         </fieldset>

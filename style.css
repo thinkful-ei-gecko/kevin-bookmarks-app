@@ -13,7 +13,7 @@ header, .content-view {
 
 .content-view {
   width: 90%;
-  padding-top: 110px;
+  padding-top: 120px;
   max-width: 640px;
 }
 
@@ -90,7 +90,7 @@ textarea {
 .condensed-view-title,
 .expanded-view-title {
   /*border: 1px solid blue;*/
-  width: 80%;
+  width: 70%;
   margin-left: 5px;
   font-weight: bold;
 }
@@ -146,4 +146,16 @@ legend {
   font-weight: bold;
   font-size: 24px;
   padding-top: 5px;
+}
+
+select {
+  height: 25px;
+}
+
+#master-controls-filter-select {
+  font-size: 12px;
+}
+
+.expanded-view-controls-edit-button {
+  display: none;
 }
