@@ -69,7 +69,7 @@ const BOOKMARKS = (function() {
           <label for="form-title-field">Title</label>
           <input type="text" name="title" id="form-title-field" required>
           <label for="form-url-field">URL</label>
-          <input type="url" name="url" id="form-url-field" value="https://" required>
+          <input type="url" name="url" id="form-url-field" placeholder="https://" required>
           <label for="form-rating-field">Rating</label>
           <select name="rating" id="form-rating-field">
             <option value="-1">-- Rate this Bookmark --</option>
@@ -206,7 +206,7 @@ const BOOKMARKS = (function() {
     handleAdding_SubmitClicked();
     handleAdding_CloseClicked();
     handleFilterSelected();
-    handleURLFieldInput();
+    //handleURLFieldInput();
     handleCondenseClicked();
     handleExpandClicked();
     handleExpanded_DeleteClicked();
