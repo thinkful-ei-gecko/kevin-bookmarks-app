@@ -69,7 +69,7 @@ const BOOKMARKS = (function() {
           <label for="form-title-field">Title</label>
           <input type="text" name="title" id="form-title-field" required>
           <label for="form-url-field">URL</label>
-          <input type="url" name="url" id="form-url-field" placeholder="https://" required>
+          <input type="text" name="url" id="form-url-field" placeholder="https://" required>
           <label for="form-rating-field">Rating</label>
           <select name="rating" id="form-rating-field">
             <option value="-1">-- Rate this Bookmark --</option>
@@ -116,6 +116,13 @@ const BOOKMARKS = (function() {
     return obj;
   }
 
+  function makeValidInputURL(inputURL) {
+    if (!/^https?:\/\//i.test(inputURL)) {
+      return 'https://' + inputURL;
+    }
+    return inputURL;
+  }
+
   ////////////////////////////// EVENT LISTENERS //////////////////////////////
 
   function handleAddClicked() {
@@ -130,6 +137,7 @@ const BOOKMARKS = (function() {
       event.preventDefault();
       const formElement = document.querySelector('#new-bookmark-form');
       const formObj = formDataToObject(formElement);
+      formObj.url = makeValidInputURL(formObj.url); // prepend 'https://' if it doesn't exist
       API.createBookmark(formObj)
         .then(bookmarkOnServer => {
           return STORE.add(bookmarkOnServer);
